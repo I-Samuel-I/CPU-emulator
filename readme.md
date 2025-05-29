@@ -1,36 +1,56 @@
-## Simulador de CPU Simplificada em Python
+# Simulador de CPU Simplificada em Python
 
-Visão Geral
-Este projeto simula uma CPU básica com registradores, memória e um contador de programa (PC). Ele demonstra o ciclo fundamental de uma CPU: buscar instrução, decodificar e executar.
+> Status: Em desenvolvimento
 
-Instruções Suportadas
+- Python 🐍
 
-LOAD Rx, valor ou LOAD Rx, [endereço]: carrega um valor imediato ou o conteúdo da memória no registrador Rx.
+---
 
-STORE [endereço], Rx: armazena o valor do registrador Rx no endereço de memória especificado.
+## Visão Geral
 
-ADD Rx, Ry: soma os valores dos registradores Rx e Ry, e armazena o resultado em Rx.
+Este projeto simula uma CPU simplificada com:
 
-HLT: termina a execução do programa.
+- Registradores: `R0`, `R1`, `R2`
+- Memória de 64 posições
+- Contador de Programa (`PC`)
 
-Formato do Arquivo de Programa
-Cada linha contém uma instrução. Comentários podem ser adicionados usando o caractere #, tudo após ele será ignorado.
-Exemplo:
-LOAD R0, 5
-LOAD R1, 12
-ADD R0, R1
-STORE [30], R0
-LOAD R2, [30]
-HLT
+O simulador executa instruções básicas para manipular registradores e memória, demonstrando o ciclo fetch-decode-execute de uma CPU.
 
-Como Executar
+---
 
-Crie um arquivo texto (.txt) contendo seu programa com as instruções acima.
+## Instruções Suportadas
 
-No script Python, ajuste o nome do arquivo para o arquivo criado.
+- `LOAD Rx, valor`  
+  Carrega um valor imediato no registrador `Rx`.  
+  Exemplo: `LOAD R0, 5`
 
-Execute o script Python. A CPU simulará a execução e mostrará o estado dos registradores e da memória.
+- `LOAD Rx, [endereço]`  
+  Carrega o conteúdo da memória no endereço indicado para o registrador `Rx`.  
+  Exemplo: `LOAD R1, [10]`
 
-O que é exibido
-Após cada instrução, o simulador mostra o conteúdo dos registradores R0, R1, R2 e do PC, além de posições relevantes da memória.
+- `STORE [endereço], Rx`  
+  Armazena o conteúdo do registrador `Rx` na memória no endereço indicado.  
+  Exemplo: `STORE [30], R0`
 
+- `ADD Rx, Ry`  
+  Soma o conteúdo dos registradores `Rx` e `Ry` e armazena o resultado em `Rx`.  
+  Exemplo: `ADD R0, R1`
+
+- `HLT`  
+  Finaliza a execução do programa.
+
+---
+
+## Formato do Arquivo de Programa
+
+Cada linha do arquivo contém uma instrução válida. Comentários podem ser adicionados após o caractere `#`.  
+
+Exemplo de programa válido (`test.txt`):
+
+```txt
+LOAD R0, 5          # Carrega 5 em R0
+LOAD R1, 12         # Carrega 12 em R1
+ADD R0, R1          # Soma R0 e R1, resultado em R0
+STORE [30], R0      # Armazena R0 na memória endereço 30
+LOAD R2, [30]       # Carrega da memória endereço 30 em R2
+HLT                 # Finaliza o programa
